@@ -12,6 +12,7 @@ class Money(commands.Cog):
         self.client = client
         self.coll = coll
 
+    @commands.cooldown(1, 30, commands.BucketType.user)
     @commands.command(name = '일', aliases = ['돈줘', '돈얻기', '돈받기', '돈지급'])
     async def GetMoney(self, ctx):
         if self.coll.find_one({"_id": str(ctx.author.id)}):
@@ -31,58 +32,11 @@ class Money(commands.Cog):
             embed.add_field(name = '현재 돈', value = ':money_with_wings:' + str(MyMoney_User_Data['money']))
             await ctx.send(embed=embed)
     
-    @commands.command(name = '도박')
-    async def DoBack(self, ctx, money=None):
-        if money == None:
-            await ctx.send('올바른 사용법은 `!도박 <원하는-금액>` 이에요!')
-        if self.coll.find_one({"_id": str(ctx.author.id)}):
-            a = await ctx.send('룰렛을 돌렸습니다!\n과연 무엇이 당첨될까요?')
-            e = await ctx.send('https://cdn.discordapp.com/emojis/809373131978309644.gif?v=1')
-            emoji = '😍'
-            emoji_2 = '😎'
-            emoji_3 = '😴'
-            random_number_1 = random.randint(1, 3)
-            random_number_2 = random.randint(1, 3)
-            random_number_3 = random.randint(1, 3)
-            
-            if random_number_1 == random_number_2 == random_number_3:
-                await a.delete()
-                await e.delete()
-                if random_number_1 == 1:
-                    await ctx.send(emoji)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji)
-                    money = money * 5
-                    find = {"_id": str(ctx.author.id)}
-                    setdata = {"$inc": {"money": money}}
-                    self.coll.update_one(find, setdata)
-                    await ctx.send(f'당첨이 되셨네요?! 축하드립니다!\n{money}의 5배인 {0}원을 지급해드렸습니다!').format(money * 5)
-                if random_number_1 == 2:
-                    await ctx.send(emoji_2)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji_2)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji_2)
-                    money = money * 5
-                    find = {"_id": str(ctx.author.id)}
-                    setdata = {"$inc": {"money": money}}
-                    self.coll.update_one(find, setdata)
-                    await ctx.send(f'당첨이 되셨네요?! 축하드립니다!\n{money}의 5배인 {0}원을 지급해드렸습니다!').format(money * 5)
-                if random_number_1 == 2:
-                    await ctx.send(emoji_3)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji_3)
-                    await asyncio.sleep(1)
-                    await ctx.send(emoji_3)
-                    money = money * 5
-                    find = {"_id": str(ctx.author.id)}
-                    setdata = {"$inc": {"money": money}}
-                    self.coll.update_one(find, setdata)
-                    await ctx.send(f'당첨이 되셨네요?! 축하드립니다!\n{money}의 5배인 {0}원을 지급해드렸습니다!').format(money * 5)
-        else:
-            await ctx.send('회원 가입이 되어있지 않아요. `!가입`으로 회원 가입을 진행해주세요!')
+    
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(f'해당 명령어는 `{round(error.retry_after, 2)}`초 뒤에 사용하실 수 있습니다.')
 
                 
 

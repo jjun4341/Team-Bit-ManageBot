@@ -14,8 +14,11 @@ class Join(commands.Cog):
 
     @commands.command(name = '가입')
     async def JoinSystem(self, ctx):
-        self.coll.insert_one({"_id": str(ctx.author.id), "money": 0, "warn": 0})
-        await ctx.send('> :white_check_mark: 가입이 완료되었어요!')
+        if self.coll.find_one({"_id": str(ctx.author.id)}):
+            await ctx.send('앗! 이미 가입이 되어있어요!')
+        else:
+            self.coll.insert_one({"_id": str(ctx.author.id), "money": 0, "warn": 0})
+            await ctx.send('> :white_check_mark: 가입이 완료되었어요!')
     
     @commands.command(name = '탈퇴')
     async def LeaveSystem(self, ctx):

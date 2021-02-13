@@ -6,7 +6,7 @@ from discord.ext.commands import bot
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', help_command=None, intents=intents)
 
-startup_extensions = ['cogs.Kick', 'cogs.Help', 'cogs.Money', 'cogs.Join']
+startup_extensions = ['cogs.Kick', 'cogs.Help', 'cogs.Money', 'cogs.Join', 'cogs.Slot', 'cogs.Warn']
 
 if __name__ == "__main__":
     for extension in startup_extensions:
