@@ -40,4 +40,4 @@ async def on_member_join(member):
         await member.add_roles(role)
         await channel.send(f'{member.mention}님 **Team. Bit** 서버에 오신 것을 진심으로 환영합니다!\n#🎄ㅣ필독규칙 채널 한 번 읽어주세요!')
 
-bot.run('Nzk4ODk2Njc0MjgxNjE5NDY2.X_7sgQ.M7_W4u6p1gSsM1Fo3gCCeWVuBTs')
+bot.run('')
