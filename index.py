@@ -6,7 +6,7 @@ from discord.ext.commands import bot
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', help_command=None, intents=intents)
 
-startup_extensions = ['cogs.Kick', 'cogs.Help']
+startup_extensions = ['cogs.Kick', 'cogs.Help', 'cogs.Money', 'cogs.Join']
 
 if __name__ == "__main__":
     for extension in startup_extensions:
@@ -19,13 +19,15 @@ if __name__ == "__main__":
 @bot.event
 async def on_ready():
     print(f'Client is Ready\n봇 이름 : {bot.user.name}\n봇 아이디 : {bot.user.id}')
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game('!도움말'))
+
 
 @bot.command(name = '리로드', aliases = ['ㄹ', 'f'])
 async def Reload(ctx):
     for extension in startup_extensions:
         bot.reload_extension(extension)
     await ctx.send('> :white_check_mark: 리로드를 완료했어요!')
-
+    
 @bot.event
 async def on_member_join(member): 
     channel = bot.get_channel(788296617731555381)
@@ -38,4 +40,4 @@ async def on_member_join(member):
         await member.add_roles(role)
         await channel.send(f'{member.mention}님 **Team. Bit** 서버에 오신 것을 진심으로 환영합니다!\n#🎄ㅣ필독규칙 채널 한 번 읽어주세요!')
 
-bot.run('')
+bot.run('Nzk4ODk2Njc0MjgxNjE5NDY2.X_7sgQ.M7_W4u6p1gSsM1Fo3gCCeWVuBTs')
