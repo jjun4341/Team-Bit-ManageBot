@@ -38,7 +38,8 @@ class Kick(commands.Cog):
                 await ctx.send(f'`{user}`님은 이미 뮤트 상태에요!')
             else:
                 await user.add_roles(roles)
-                channel = self.bot.get_channel(800925530126811166)
+                guild = self.bot.get_guild(788296617731555378)
+                channel = self.bot.guild.get_channel(800925530126811166)
                 embed = discord.Embed(title = f'{user} - 뮤트', description = ' ', colour = 0xff0000)
                 embed.add_field(name = '뮤트 사유', value = f'{reason}')
                 await channel.send(embed=embed)
@@ -53,7 +54,8 @@ class Kick(commands.Cog):
                 await ctx.send(f'`{userss}`님은 뮤트 상태가 아니에요!')
             else:
                 await userss.remove_roles(roles)
-                channel = self.bot.get_channel(800925530126811166)
+                guild = self.bot.get_guild(788296617731555378)
+                channel = self.bot.guild.get_channel(800925530126811166)
                 embed = discord.Embed(title = f'{userss} - 뮤트 해제', description = ' ', colour = 0x00FFFF)
                 await channel.send(embed=embed)
         else:
