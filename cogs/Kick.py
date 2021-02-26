@@ -33,7 +33,7 @@ class Kick(commands.Cog):
     @commands.command(name = '뮤트')
     async def MuteMember(self, ctx, user: discord.Member, *, reason: str):
         if ctx.author.id == 443734180816486441:
-            roles = ctx.guild.get_role(798509528136024064)
+            roles = ctx.guild.get_role(810431202707243028)
             if roles in user.roles:
                 await ctx.send(f'`{user}`님은 이미 뮤트 상태에요!')
             else:
@@ -48,7 +48,7 @@ class Kick(commands.Cog):
     @commands.command(name = '뮤트해제')
     async def UnMuteMember(self, ctx, userss: discord.Member):
         if ctx.author.id == 443734180816486441:
-            roles = ctx.guild.get_role(798509528136024064)
+            roles = ctx.guild.get_role(810431202707243028)
             if roles not in userss.roles:
                 await ctx.send(f'`{userss}`님은 뮤트 상태가 아니에요!')
             else:
