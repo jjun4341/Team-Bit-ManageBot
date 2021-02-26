@@ -37,6 +37,9 @@ class Money(commands.Cog):
             await ctx.send('올바른 사용법은 `!도박 <원하는-금액>` 이에요!')
         if self.coll.find_one({"_id": str(ctx.author.id)}):
             a = await ctx.send('룰렛을 돌렸습니다!\n과연 무엇이 당첨될까요?')
+            find_user_data = {"_id": str(ctx.author.id)}
+            setdatas = {"$inc": -money}
+            self.coll.update_one(find_user_data, setdatas)
             e = await ctx.send('https://cdn.discordapp.com/emojis/809373131978309644.gif?v=1')
             emoji = '😍'
             emoji_2 = '😎'
@@ -81,6 +84,8 @@ class Money(commands.Cog):
                     setdata = {"$inc": {"money": money}}
                     self.coll.update_one(find, setdata)
                     await ctx.send(f'당첨이 되셨네요?! 축하드립니다!\n{money}의 5배인 {0}원을 지급해드렸습니다!').format(money * 5)
+            else:
+                await ctx.send('앗, 꽝이네요. 
         else:
             await ctx.send('회원 가입이 되어있지 않아요. `!가입`으로 회원 가입을 진행해주세요!')
 
